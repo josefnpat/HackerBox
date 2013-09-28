@@ -1,0 +1,35 @@
+a, pre {
+  color: #8ae234;
+}
+
+ul {
+  padding-left: 0px;
+  list-style-type: none;
+}
+
+body {
+  padding: 0px;
+  margin: 0px;
+  color: #eeeeec;
+  background-color: #000;
+}
+
+.left, .right {
+  padding: 5% 5%;
+  margin: 0 0%;
+  width: 40%;
+  height: 100%;
+  display: block;
+}
+
+.left {
+  float: left;
+  position: fixed;
+  top:0px;
+  left:0px;
+}
+
+.right {
+  float: right;
+  background-color: #2e3436;
+}
