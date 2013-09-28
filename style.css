@@ -33,3 +33,11 @@ body {
   float: right;
   background-color: #2e3436;
 }
+
+.right ul .odd, .right ul .even {
+  padding: 4px;
+}
+
+.right ul .odd {
+  background-color: #555753;
+}

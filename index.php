@@ -36,6 +36,20 @@ function return_bytes($val) {
   return $val;
 }
 
+function arraytoul($arr,$func=NULL) {
+  if(count($arr) > 0){
+    $s = "<ul>\n";
+    $div = false;
+    foreach($arr as $ele){
+      $s.="<li class='".($div?"even":"odd")."'>".($func?$func($ele):$ele)."</li>\n";
+      $div = !$div;
+    }
+    return $s."</ul>\n";
+  } else {
+    return false;
+  }
+}
+
 $max = return_bytes(ini_get('upload_max_filesize'));
 
 $msgs = array();
@@ -92,15 +106,7 @@ if( isset($_FILES) ){
       <div class="left">
 <pre><?php include("logo.ascii"); ?></pre>
         <h1><?php echo BOX_NAME; ?></h1>
-<?php
-if(count($msgs) > 0){
-  echo "<ul>\n";
-  foreach($msgs as $msg){
-    echo "<li>$msg</li>\n";
-  }
-  echo "</ul>\n";
-}
-?>
+<?php echo arraytoul($msgs); ?>
         </ul>
         <form enctype="multipart/form-data" action="" method="POST">
           <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max; ?>" />
@@ -113,14 +119,14 @@ if(count($msgs) > 0){
 
 chdir("uploads");
 $ups = glob("*");
-if( !empty($ups) > 0 ){
-  echo "<ul>\n";
-  foreach($ups as $up){
-    echo "<li><a href='uploads/$up'>$up</a> <small>[".human_filesize(filesize($up)).",".(time()-filemtime($up))."s]</small></li>\n";
-  }
-  echo "</ul>\n";
-} else {
+
+$upsrender = arraytoul($ups,function($up){
+  return "<a href='uploads/$up'>$up</a> <small>[".human_filesize(filesize($up)).",".(time()-filemtime($up))."s]</small>";
+});
+if($upsrender === NULL){
   echo "<p>No files have been uploaded yet.";
+} else {
+  echo $upsrender;
 }
 ?>
       </div> <!-- right -->
