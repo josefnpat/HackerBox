@@ -107,8 +107,7 @@ if( isset($_FILES) ){
 <pre><?php include("logo.ascii"); ?></pre>
         <h1><?php echo BOX_NAME; ?></h1>
 <?php echo arraytoul($msgs); ?>
-        </ul>
-        <form enctype="multipart/form-data" action="" method="POST">
+        <form enctype="multipart/form-data" action="index.php" method="POST">
           <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max; ?>" />
           <input name="f" type="file" /><br />
           <input type="submit"/>
