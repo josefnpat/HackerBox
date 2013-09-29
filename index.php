@@ -50,6 +50,24 @@ function arraytoul($arr,$func=NULL) {
   }
 }
 
+function stostr($secs) {
+  $r = '';
+  if($secs>=86400){
+    $days=floor($secs/86400);$secs=$secs%86400;
+    $r=$days.'d';
+  }
+  if($secs>=3600){
+    $hours=floor($secs/3600);$secs=$secs%3600;
+    $r.=$hours.'h';
+  }
+  if($secs>=60){
+    $minutes=floor($secs/60);$secs=$secs%60;
+    $r.=$minutes.'m';
+  }
+  $r.=$secs.'s';
+  return $r;
+}
+
 $max = return_bytes(ini_get('upload_max_filesize'));
 
 $msgs = array();
@@ -120,7 +138,7 @@ chdir("uploads");
 $ups = glob("*");
 
 $upsrender = arraytoul($ups,function($up){
-  return "<a href='uploads/$up'>$up</a> <small>[".human_filesize(filesize($up)).",".(time()-filemtime($up))."s]</small>";
+  return "<a href='uploads/$up'>$up</a> <small>[".human_filesize(filesize($up))." &mdash; ".stostr(time()-filemtime($up))."]</small>";
 });
 if($upsrender === NULL){
   echo "<p>No files have been uploaded yet.";
